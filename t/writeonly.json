@@ -6,7 +6,7 @@
             "actions": ["distribute"],
             "effect": "allow",
             "condition": {
-                "op": "Constant",
+                "op": "Const",
                 "const": true
             }
         }
