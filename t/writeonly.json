@@ -1,0 +1,19 @@
+{
+    "name": "writeonly",
+    "version": "2024-05-01",
+    "statements": [
+        {
+            "actions": ["distribute"],
+            "effect": "allow",
+            "condition": {
+                "op": "Constant",
+                "const": true
+            }
+        }
+    ],
+    "paramSchema": {
+        "type": "object",
+        "properties": {
+        }
+    }
+}
