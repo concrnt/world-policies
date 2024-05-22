@@ -1,64 +1,123 @@
 {
-    "name": "timeline-inline-read-write",
-    "version": "2024-05-01",
-    "statements": [
-        {
-            "actions": ["distribute"],
-            "effect": "allow",
-            "condition": {
-                "op": "Contains",
-                "args": [
-                    {
-                        "op": "LoadParam",
-                        "const": "writer"
-                    },
-                    {
-                        "op": "RequesterID"
-                    }
-                ]
-            }
-        },
-        {
-            "actions": ["GET:/message/*"],
-            "effect": "allow",
-            "condition": {
-                "op": "Contains",
-                "args": [
-                    {
-                        "op": "LoadParam",
-                        "const": "reader"
-                    },
-                    {
-                        "op": "RequesterID"
-                    }
-                ]
-            }
-        }
-    ],
-    "paramSchema": {
-        "type": "object",
-        "properties": {
-            "writer": {
-                "type": "array",
-                "items": {
-                    "type": "string"
-                }
-            },
-            "reader": {
-                "type": "array",
-                "items": {
-                    "type": "string"
-                }
-            }
-        },
-        "required": ["writer", "reader"],
-        "ui": {
-            "writer": {
-                "ui:widget": "userPicker"
-            },
-            "reader": {
-                "ui:widget": "userPicker"
-            }
-        }
+  "name": "timeline-inline-read-write",
+  "version": "2024-05-01",
+  "statements": [
+    {
+      "actions": [
+        "distribute"
+      ],
+      "effect": "allow",
+      "condition": {
+        "op": "Or",
+        "args": [
+          {
+            "op": "LoadParam",
+            "const": "isWritePublic"
+          },
+          {
+            "op": "Contains",
+            "args": [
+              {
+                "op": "LoadParam",
+                "const": "writer"
+              },
+              {
+                "op": "RequesterID"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "actions": [
+        "GET:/message/*"
+      ],
+      "effect": "allow",
+      "condition": {
+        "op": "Or",
+        "args": [
+          {
+            "op": "LoadParam",
+            "const": "isReadPublic"
+          },
+          {
+            "op": "Contains",
+            "args": [
+              {
+                "op": "LoadParam",
+                "const": "reader"
+              },
+              {
+                "op": "RequesterID"
+              }
+            ]
+          }
+        ]
+      }
     }
+  ],
+  "paramSchema": {
+    "type": "object",
+    "properties": {
+      "isWritePublic": {
+        "type": "boolean"
+      },
+      "isReadPublic": {
+        "type": "boolean"
+      }
+    },
+    "allOf": [
+      {
+        "if": {
+          "properties": {
+            "isWritePublic": {
+              "const": false
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "writer": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "properties": {
+            "isReadPublic": {
+              "const": false
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "reader": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "required": [
+      "writer",
+      "reader"
+    ],
+    "ui": {
+      "writer": {
+        "ui:widget": "userPicker"
+      },
+      "reader": {
+        "ui:widget": "userPicker"
+      }
+    }
+  }
 }
