@@ -26,7 +26,7 @@
             ]
           }
         },
-        "timeline.message.get": {
+        "timeline.message.read": {
           "condition": {
             "op": "Or",
             "args": [
