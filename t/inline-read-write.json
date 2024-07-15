@@ -3,7 +3,7 @@
   "versions": {
     "2024-07-01": {
       "statements": {
-        "distribute": {
+        "timeline.distribute": {
           "condition": {
             "op": "Or",
             "args": [
