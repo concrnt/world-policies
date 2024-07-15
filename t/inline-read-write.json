@@ -1,5 +1,121 @@
 {
   "name": "timeline-inline-read-write",
+  "versions": {
+    "2024-07-01": {
+      "statements": {
+        "distribute": {
+          "condition": {
+            "op": "Or",
+            "args": [
+              {
+                "op": "LoadParam",
+                "const": "isWritePublic"
+              },
+              {
+                "op": "Contains",
+                "args": [
+                  {
+                    "op": "LoadParam",
+                    "const": "writer"
+                  },
+                  {
+                    "op": "RequesterID"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "timeline.message.get": {
+          "condition": {
+            "op": "Or",
+            "args": [
+              {
+                "op": "LoadParam",
+                "const": "isReadPublic"
+              },
+              {
+                "op": "Contains",
+                "args": [
+                  {
+                    "op": "LoadParam",
+                    "const": "reader"
+                  },
+                  {
+                    "op": "RequesterID"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "paramSchema": {
+        "type": "object",
+        "properties": {
+          "isWritePublic": {
+            "type": "boolean"
+          },
+          "isReadPublic": {
+            "type": "boolean"
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "isWritePublic": {
+                  "const": false
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "writer": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "isReadPublic": {
+                  "const": false
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "reader": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "required": [
+          "writer",
+          "reader"
+        ],
+        "ui": {
+          "writer": {
+            "ui:widget": "userPicker"
+          },
+          "reader": {
+            "ui:widget": "userPicker"
+          }
+        }
+      }
+    }
+  },
+
   "version": "2024-05-01",
   "statements": [
     {
