@@ -1,0 +1,43 @@
+{
+  "name": "restrict-association-schema",
+  "versions": {
+    "2024-07-01": {
+      "statements": {
+        "timeline.message.association.attach": {
+          "condition": {
+            "op": "Or",
+            "args": [
+              {
+                "op": "Contains",
+                "args": [
+                  {
+                    "op": "LoadParam",
+                    "const": "allowed"
+                  },
+                  {
+                    "op": "LoadDocument",
+                    "const": "schema"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "paramSchema": {
+        "type": "object",
+        "properties": {
+          "allowed": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+          }
+        },
+        "required": [
+          "allowed"
+        ]
+      }
+    }
+  }
+}
