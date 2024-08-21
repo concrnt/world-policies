@@ -1,0 +1,59 @@
+{
+  "name": "whisper",
+  "versions": {
+    "2024-07-01": {
+      "statements": {
+        "message.read": {
+          "condition": {
+            "op": "Or",
+            "args": [
+              {
+                "op": "Eq",
+                "args": [
+                    {
+                        "op": "LoadSelf",
+                        "const": "author"
+                    },
+                    {
+                        "op": "RequesterID"
+                    }
+                ]
+              },
+              {
+                "op": "Contains",
+                "args": [
+                  {
+                    "op": "LoadParam",
+                    "const": "reader"
+                  },
+                  {
+                    "op": "RequesterID"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "paramSchema": {
+        "type": "object",
+        "properties": {
+            "participants": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                }
+            }
+        },
+        "required": [
+            "participants"
+        ],
+        "ui": {
+          "participants": {
+            "ui:widget": "userPicker"
+          }
+        }
+      }
+    }
+  }
+}
