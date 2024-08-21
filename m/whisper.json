@@ -24,7 +24,7 @@
                 "args": [
                   {
                     "op": "LoadParam",
-                    "const": "reader"
+                    "const": "participants"
                   },
                   {
                     "op": "RequesterID"
