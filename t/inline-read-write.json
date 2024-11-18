@@ -179,10 +179,12 @@
     "type": "object",
     "properties": {
       "isWritePublic": {
-        "type": "boolean"
+        "type": "boolean",
+        "default": false
       },
       "isReadPublic": {
-        "type": "boolean"
+        "type": "boolean",
+        "default": false
       }
     },
     "allOf": [
