@@ -91,6 +91,12 @@
             ],
             "default": false
           },
+          "writer": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
           "readListMode": {
             "type": "boolean",
             "oneOf": [
@@ -98,12 +104,6 @@
               { "const": true, "title": "AllowList" }
             ],
             "default": false
-          },
-          "writer": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
           },
           "reader": {
             "type": "array",
