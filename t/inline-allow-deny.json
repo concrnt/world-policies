@@ -1,0 +1,138 @@
+{
+  "name": "timeline-inline-allow-deny",
+  "versions": {
+    "2024-07-01": {
+      "statements": {
+        "timeline.distribute": {
+          "condition": {
+            "op": "Cond",
+            "args": [
+              {
+                "op": "LoadParam",
+                "const": "writeListMode"
+              },
+              {
+                "op": "Contains",
+                "args": [
+                  {
+                    "op": "LoadParam",
+                    "const": "writer"
+                  },
+                  {
+                    "op": "RequesterID"
+                  }
+                ]
+              },
+              {
+                "op": "Not",
+                "args": [{
+                  "op": "Contains",
+                  "args": [
+                    {
+                        "op": "LoadParam",
+                        "const": "writer"
+                    },
+                    {
+                        "op": "RequesterID"
+                    }
+                  ]
+                }]
+              }
+            ]
+          }
+        },
+        "timeline.message.read": {
+          "condition": {
+            "op": "Cond",
+            "args": [
+              {
+                "op": "LoadParam",
+                "const": "isReadPublic"
+              },
+              {
+                "op": "Contains",
+                "args": [
+                  {
+                    "op": "LoadParam",
+                    "const": "reader"
+                  },
+                  {
+                    "op": "RequesterID"
+                  }
+                ]
+              },
+              {
+                "op": "Not",
+                "args": [{
+                  "op": "Contains",
+                  "args": [
+                    {
+                        "op": "LoadParam",
+                        "const": "reader"
+                    },
+                    {
+                        "op": "RequesterID"
+                    }
+                  ]
+                }]
+              }
+            ]
+          }
+        }
+      },
+      "paramSchema": {
+        "type": "object",
+        "properties": {
+          "writeListMode": {
+            "type": "boolean",
+            "oneOf": [
+              { "const": false, "title": "DenyList" },
+              { "const": true, "title": "AllowList" }
+            ],
+            "default": false
+          },
+          "readListMode": {
+            "type": "boolean",
+            "oneOf": [
+              { "const": false, "title": "DenyList" },
+              { "const": true, "title": "AllowList" }
+            ],
+            "default": false
+          },
+          "writer": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "reader": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "writeListMode",
+          "readListMode",
+          "writer",
+          "reader"
+        ],
+        "ui": {
+          "writeListMode": {
+            "ui:widget": "select"
+          },
+          "readListMode": {
+            "ui:widget": "select"
+          },
+          "writer": {
+            "ui:widget": "userPicker"
+          },
+          "reader": {
+            "ui:widget": "userPicker"
+          }
+        }
+      }
+    }
+  }
+}
