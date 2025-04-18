@@ -1,0 +1,80 @@
+{
+  "name": "restrict-ackees",
+  "versions": {
+    "2024-07-01": {
+      "statements": {
+        "timeline.distribute": {
+          "condition": {
+            "op": "Cond",
+            "args": [
+              {
+                "op": "LoadParam",
+                "const": "restrictWriters"
+              },
+              {
+                "op": "Acks",
+                "args": [
+                  {
+                    "op": "LoadSelf",
+                    "const": "author"
+                  },
+                  {
+                    "op": "RequesterID"
+                  }
+                ]
+              },
+              {
+                "op": "Const",
+                "const": true
+              }
+            ]
+          }
+        },
+        "timeline.message.read": {
+          "condition": {
+            "op": "Cond",
+            "args": [
+              {
+                "op": "LoadParam",
+                "const": "restrictReaders"
+              },
+              {
+                "op": "Acks",
+                "args": [
+                  {
+                    "op": "LoadSelf",
+                    "const": "author"
+                  },
+                  {
+                    "op": "RequesterID"
+                  }
+                ]
+              },
+              {
+                "op": "Const",
+                "const": true
+              }
+            ]
+          }
+        }
+      },
+      "paramSchema": {
+        "type": "object",
+        "properties": {
+          "restrictWriters": {
+            "type": "boolean",
+            "default": false
+          },
+          "restrictReaders": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "required": [
+          "restrictWriters",
+          "restrictReaders"
+        ]
+      }
+    }
+  }
+}
