@@ -47,7 +47,7 @@
             "args": [
               {
                 "op": "LoadParam",
-                "const": "isReadPublic"
+                "const": "readListMode"
               },
               {
                 "op": "Contains",
