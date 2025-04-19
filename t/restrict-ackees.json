@@ -60,8 +60,7 @@
                         "const": "author"
                     },
                     {
-                        "op": "LoadDocument",
-                        "const": "signer"
+                        "op": "RequesterID"
                     }
                 ]
               },
