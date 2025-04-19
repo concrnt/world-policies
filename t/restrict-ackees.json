@@ -5,54 +5,90 @@
       "statements": {
         "timeline.distribute": {
           "condition": {
-            "op": "Cond",
+            "op": "Or",
             "args": [
               {
-                "op": "LoadParam",
-                "const": "restrictWriters"
-              },
-              {
-                "op": "Acks",
+                "op": "Eq",
                 "args": [
-                  {
-                    "op": "LoadSelf",
-                    "const": "author"
-                  },
-                  {
-                    "op": "RequesterID"
-                  }
+                    {
+                        "op": "LoadSelf",
+                        "const": "author"
+                    },
+                    {
+                        "op": "LoadDocument",
+                        "const": "signer"
+                    }
                 ]
               },
               {
-                "op": "Const",
-                "const": true
+                "op": "Cond",
+                "args": [
+                  {
+                    "op": "LoadParam",
+                    "const": "restrictWriters"
+                  },
+                  {
+                    "op": "Acks",
+                    "args": [
+                      {
+                        "op": "LoadSelf",
+                        "const": "author"
+                      },
+                      {
+                        "op": "RequesterID"
+                      }
+                    ]
+                  },
+                  {
+                    "op": "Const",
+                    "const": true
+                  }
+                ]
               }
             ]
           }
         },
         "timeline.message.read": {
           "condition": {
-            "op": "Cond",
+            "op": "Or",
             "args": [
               {
-                "op": "LoadParam",
-                "const": "restrictReaders"
-              },
-              {
-                "op": "Acks",
+                "op": "Eq",
                 "args": [
-                  {
-                    "op": "LoadSelf",
-                    "const": "author"
-                  },
-                  {
-                    "op": "RequesterID"
-                  }
+                    {
+                        "op": "LoadSelf",
+                        "const": "author"
+                    },
+                    {
+                        "op": "LoadDocument",
+                        "const": "signer"
+                    }
                 ]
               },
               {
-                "op": "Const",
-                "const": true
+                "op": "Cond",
+                "args": [
+                  {
+                    "op": "LoadParam",
+                    "const": "restrictReaders"
+                  },
+                  {
+                    "op": "Acks",
+                    "args": [
+                      {
+                        "op": "LoadSelf",
+                        "const": "author"
+                      },
+                      {
+                        "op": "RequesterID"
+                      }
+                    ]
+                  },
+                  {
+                    "op": "Const",
+                    "const": true
+                  }
+                ]
               }
             ]
           }
