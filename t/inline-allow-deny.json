@@ -1,6 +1,189 @@
 {
   "name": "timeline-inline-allow-deny",
   "versions": {
+    "2024-12-23": {
+      "statements": {
+        "net.concrnt.resource": [
+          {
+            "emit": "allow",
+            "condition": {
+              "op": "And",
+              "args": [
+                {
+                  "op": "Load",
+                  "const": "params.readListMode"
+                },
+                {
+                  "op": "Contains",
+                  "args": [
+                    {
+                      "op": "Load",
+                      "const": "params.reader"
+                    },
+                    {
+                      "op": "Load",
+                      "const": "requester.ccid"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "emit": "deny",
+            "condition": {
+              "op": "And",
+              "args": [
+                {
+                  "op": "Not",
+                  "args": [
+                    {
+                      "op": "Load",
+                      "const": "params.readListMode"
+                    }
+                  ]
+                },
+                {
+                  "op": "Contains",
+                  "args": [
+                    {
+                      "op": "Load",
+                      "const": "params.reader"
+                    },
+                    {
+                      "op": "Load",
+                      "const": "requester.ccid"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "commit.create": [
+          {
+            "emit": "allow",
+            "condition": {
+              "op": "And",
+              "args": [
+                {
+                  "op": "Load",
+                  "const": "params.writeListMode"
+                },
+                {
+                  "op": "Contains",
+                  "args": [
+                    {
+                      "op": "Load",
+                      "const": "params.writer"
+                    },
+                    {
+                      "op": "Load",
+                      "const": "requester.ccid"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "emit": "deny",
+            "condition": {
+              "op": "And",
+              "args": [
+                {
+                  "op": "Not",
+                  "args": [
+                    {
+                      "op": "Load",
+                      "const": "params.writeListMode"
+                    }
+                  ]
+                },
+                {
+                  "op": "Contains",
+                  "args": [
+                    {
+                      "op": "Load",
+                      "const": "params.writer"
+                    },
+                    {
+                      "op": "Load",
+                      "const": "requester.ccid"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "paramSchema": {
+        "type": "object",
+        "properties": {
+          "writeListMode": {
+            "type": "boolean",
+            "oneOf": [
+              {
+                "const": false,
+                "title": "DenyList"
+              },
+              {
+                "const": true,
+                "title": "AllowList"
+              }
+            ],
+            "default": false
+          },
+          "writer": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "readListMode": {
+            "type": "boolean",
+            "oneOf": [
+              {
+                "const": false,
+                "title": "DenyList"
+              },
+              {
+                "const": true,
+                "title": "AllowList"
+              }
+            ],
+            "default": false
+          },
+          "reader": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "writeListMode",
+          "readListMode",
+          "writer",
+          "reader"
+        ],
+        "ui": {
+          "writeListMode": {
+            "ui:widget": "select"
+          },
+          "readListMode": {
+            "ui:widget": "select"
+          },
+          "writer": {
+            "ui:widget": "userPicker"
+          },
+          "reader": {
+            "ui:widget": "userPicker"
+          }
+        }
+      }
+    },
     "2024-07-01": {
       "statements": {
         "timeline.distribute": {
@@ -25,18 +208,20 @@
               },
               {
                 "op": "Not",
-                "args": [{
-                  "op": "Contains",
-                  "args": [
-                    {
+                "args": [
+                  {
+                    "op": "Contains",
+                    "args": [
+                      {
                         "op": "LoadParam",
                         "const": "writer"
-                    },
-                    {
+                      },
+                      {
                         "op": "RequesterID"
-                    }
-                  ]
-                }]
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           }
@@ -63,18 +248,20 @@
               },
               {
                 "op": "Not",
-                "args": [{
-                  "op": "Contains",
-                  "args": [
-                    {
+                "args": [
+                  {
+                    "op": "Contains",
+                    "args": [
+                      {
                         "op": "LoadParam",
                         "const": "reader"
-                    },
-                    {
+                      },
+                      {
                         "op": "RequesterID"
-                    }
-                  ]
-                }]
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           }
@@ -86,8 +273,14 @@
           "writeListMode": {
             "type": "boolean",
             "oneOf": [
-              { "const": false, "title": "DenyList" },
-              { "const": true, "title": "AllowList" }
+              {
+                "const": false,
+                "title": "DenyList"
+              },
+              {
+                "const": true,
+                "title": "AllowList"
+              }
             ],
             "default": false
           },
@@ -100,8 +293,14 @@
           "readListMode": {
             "type": "boolean",
             "oneOf": [
-              { "const": false, "title": "DenyList" },
-              { "const": true, "title": "AllowList" }
+              {
+                "const": false,
+                "title": "DenyList"
+              },
+              {
+                "const": true,
+                "title": "AllowList"
+              }
             ],
             "default": false
           },
