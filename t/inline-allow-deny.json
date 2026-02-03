@@ -1,7 +1,7 @@
 {
   "name": "timeline-inline-allow-deny",
   "versions": {
-    "2024-12-23": {
+    "2025-12-23": {
       "statements": {
         "net.concrnt.resource": [
           {
