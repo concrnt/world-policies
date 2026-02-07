@@ -3,7 +3,7 @@
   "versions": {
     "2025-12-23": {
       "statements": {
-        "net.concrnt.resource": [
+        "net.concrnt.core.resolve": [
           {
             "emit": "allow",
             "condition": {
@@ -60,7 +60,7 @@
             }
           }
         ],
-        "commit.create": [
+        "net.concrnt.core.commit.create": [
           {
             "emit": "allow",
             "condition": {
