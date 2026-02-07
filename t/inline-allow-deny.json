@@ -44,15 +44,20 @@
                   ]
                 },
                 {
-                  "op": "Contains",
+                  "op": "Not",
                   "args": [
                     {
-                      "op": "Load",
-                      "const": "params.reader"
-                    },
-                    {
-                      "op": "Load",
-                      "const": "requester.ccid"
+                      "op": "Contains",
+                      "args": [
+                        {
+                          "op": "Load",
+                          "const": "params.reader"
+                        },
+                        {
+                          "op": "Load",
+                          "const": "requester.ccid"
+                        }
+                      ]
                     }
                   ]
                 }
@@ -101,15 +106,20 @@
                   ]
                 },
                 {
-                  "op": "Contains",
+                  "op": "Not",
                   "args": [
                     {
-                      "op": "Load",
-                      "const": "params.writer"
-                    },
-                    {
-                      "op": "Load",
-                      "const": "requester.ccid"
+                      "op": "Contains",
+                      "args": [
+                        {
+                          "op": "Load",
+                          "const": "params.writer"
+                        },
+                        {
+                          "op": "Load",
+                          "const": "requester.ccid"
+                        }
+                      ]
                     }
                   ]
                 }
