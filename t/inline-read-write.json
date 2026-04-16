@@ -1,6 +1,137 @@
 {
   "name": "timeline-inline-read-write",
   "versions": {
+    "2025-12-23": {
+      "statements": {
+        "net.concrnt.core.resolve": [
+          {
+            "emit": "deny",
+            "condition": {
+              "op": "And",
+              "args": [
+                {
+                  "op": "Not",
+                  "args": [{
+                    "op": "Load",
+                    "const": "params.isReadPublic"
+                  }]
+                },
+                {
+                  "op": "Not",
+                  "args": [
+                    {
+                      "op": "Contains",
+                      "args": [
+                        {
+                          "op": "Load",
+                          "const": "params.reader"
+                        },
+                        {
+                          "op": "Load",
+                          "const": "requester.ccid"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "net.concrnt.core.commit.create": [
+          {
+            "emit": "allow",
+            "condition": {
+              "op": "Or",
+              "args": [
+                {
+                  "op": "Load",
+                  "const": "params.isWritePublic"
+                },
+                {
+                  "op": "Contains",
+                  "args": [
+                    {
+                      "op": "Load",
+                      "const": "params.writer"
+                    },
+                    {
+                      "op": "Load",
+                      "const": "requester.ccid"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "paramSchema": {
+        "type": "object",
+        "properties": {
+          "isWritePublic": {
+            "type": "boolean"
+          },
+          "isReadPublic": {
+            "type": "boolean"
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "isWritePublic": {
+                  "const": false
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "writer": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "isReadPublic": {
+                  "const": false
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "reader": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "required": [
+          "isWritePublic",
+          "isReadPublic",
+          "writer",
+          "reader"
+        ],
+        "ui": {
+          "writer": {
+            "ui:widget": "userPicker"
+          },
+          "reader": {
+            "ui:widget": "userPicker"
+          }
+        }
+      }
+    },
     "2024-07-01": {
       "statements": {
         "timeline.distribute": {
