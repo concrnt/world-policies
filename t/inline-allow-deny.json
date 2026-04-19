@@ -2,132 +2,136 @@
   "name": "timeline-inline-allow-deny",
   "versions": {
     "2025-12-23": {
-      "statements": {
-        "net.concrnt.core.resolve": [
-          {
-            "emit": "deny",
-            "condition": {
-              "op": "And",
-              "args": [
-                {
-                  "op": "Load",
-                  "const": "params.readListMode"
-                },
-                {
-                  "op": "Contains",
-                  "args": [
-                    {
-                      "op": "Load",
-                      "const": "params.reader"
-                    },
-                    {
-                      "op": "Load",
-                      "const": "requester.ccid"
-                    }
-                  ]
-                }
-              ]
-            }
-          },
-          {
-            "emit": "allow",
-            "condition": {
-              "op": "And",
-              "args": [
-                {
-                  "op": "Not",
-                  "args": [
-                    {
-                      "op": "Load",
-                      "const": "params.readListMode"
-                    }
-                  ]
-                },
-                {
-                  "op": "Not",
-                  "args": [
-                    {
-                      "op": "Contains",
-                      "args": [
-                        {
-                          "op": "Load",
-                          "const": "params.reader"
-                        },
-                        {
-                          "op": "Load",
-                          "const": "requester.ccid"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
+      "statements": [
+        {
+          "action": "net.concrnt.core.resolve",
+          "key": "./*",
+          "emit": "deny",
+          "condition": {
+            "op": "And",
+            "args": [
+              {
+                "op": "Load",
+                "const": "params.readListMode"
+              },
+              {
+                "op": "Contains",
+                "args": [
+                  {
+                    "op": "Load",
+                    "const": "params.reader"
+                  },
+                  {
+                    "op": "Load",
+                    "const": "requester.ccid"
+                  }
+                ]
+              }
+            ]
           }
-        ],
-        "net.concrnt.core.commit.create": [
-          {
-            "emit": "deny",
-            "condition": {
-              "op": "And",
-              "args": [
-                {
-                  "op": "Load",
-                  "const": "params.writeListMode"
-                },
-                {
-                  "op": "Contains",
-                  "args": [
-                    {
-                      "op": "Load",
-                      "const": "params.writer"
-                    },
-                    {
-                      "op": "Load",
-                      "const": "requester.ccid"
-                    }
-                  ]
-                }
-              ]
-            }
-          },
-          {
-            "emit": "allow",
-            "condition": {
-              "op": "And",
-              "args": [
-                {
-                  "op": "Not",
-                  "args": [
-                    {
-                      "op": "Load",
-                      "const": "params.writeListMode"
-                    }
-                  ]
-                },
-                {
-                  "op": "Not",
-                  "args": [
-                    {
-                      "op": "Contains",
-                      "args": [
-                        {
-                          "op": "Load",
-                          "const": "params.writer"
-                        },
-                        {
-                          "op": "Load",
-                          "const": "requester.ccid"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
+        },
+        {
+          "action": "net.concrnt.core.resolve",
+          "key": "./*",
+          "emit": "allow",
+          "condition": {
+            "op": "And",
+            "args": [
+              {
+                "op": "Not",
+                "args": [
+                  {
+                    "op": "Load",
+                    "const": "params.readListMode"
+                  }
+                ]
+              },
+              {
+                "op": "Not",
+                "args": [
+                  {
+                    "op": "Contains",
+                    "args": [
+                      {
+                        "op": "Load",
+                        "const": "params.reader"
+                      },
+                      {
+                        "op": "Load",
+                        "const": "requester.ccid"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
           }
-        ]
-      },
+        },
+        {
+          "action": "net.concrnt.core.commit.create",
+          "key": "./*",
+          "emit": "deny",
+          "condition": {
+            "op": "And",
+            "args": [
+              {
+                "op": "Load",
+                "const": "params.writeListMode"
+              },
+              {
+                "op": "Contains",
+                "args": [
+                  {
+                    "op": "Load",
+                    "const": "params.writer"
+                  },
+                  {
+                    "op": "Load",
+                    "const": "requester.ccid"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "action": "net.concrnt.core.commit.create",
+          "key": "./*",
+          "emit": "allow",
+          "condition": {
+            "op": "And",
+            "args": [
+              {
+                "op": "Not",
+                "args": [
+                  {
+                    "op": "Load",
+                    "const": "params.writeListMode"
+                  }
+                ]
+              },
+              {
+                "op": "Not",
+                "args": [
+                  {
+                    "op": "Contains",
+                    "args": [
+                      {
+                        "op": "Load",
+                        "const": "params.writer"
+                      },
+                      {
+                        "op": "Load",
+                        "const": "requester.ccid"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
       "paramSchema": {
         "type": "object",
         "properties": {
