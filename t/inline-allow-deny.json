@@ -15,38 +15,6 @@
                 "const": "params.readListMode"
               },
               {
-                "op": "Contains",
-                "args": [
-                  {
-                    "op": "Load",
-                    "const": "params.reader"
-                  },
-                  {
-                    "op": "Load",
-                    "const": "requester.ccid"
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "action": "net.concrnt.core.resolve",
-          "key": "./*",
-          "emit": "allow",
-          "condition": {
-            "op": "And",
-            "args": [
-              {
-                "op": "Not",
-                "args": [
-                  {
-                    "op": "Load",
-                    "const": "params.readListMode"
-                  }
-                ]
-              },
-              {
                 "op": "Not",
                 "args": [
                   {
@@ -68,22 +36,27 @@
           }
         },
         {
-          "action": "net.concrnt.core.commit.create",
+          "action": "net.concrnt.core.resolve",
           "key": "./*",
           "emit": "deny",
           "condition": {
             "op": "And",
             "args": [
               {
-                "op": "Load",
-                "const": "params.writeListMode"
+                "op": "Not",
+                "args": [
+                  {
+                    "op": "Load",
+                    "const": "params.readListMode"
+                  }
+                ]
               },
               {
                 "op": "Contains",
                 "args": [
                   {
                     "op": "Load",
-                    "const": "params.writer"
+                    "const": "params.reader"
                   },
                   {
                     "op": "Load",
@@ -97,18 +70,13 @@
         {
           "action": "net.concrnt.core.commit.create",
           "key": "./*",
-          "emit": "allow",
+          "emit": "deny",
           "condition": {
             "op": "And",
             "args": [
               {
-                "op": "Not",
-                "args": [
-                  {
-                    "op": "Load",
-                    "const": "params.writeListMode"
-                  }
-                ]
+                "op": "Load",
+                "const": "params.writeListMode"
               },
               {
                 "op": "Not",
@@ -125,6 +93,38 @@
                         "const": "requester.ccid"
                       }
                     ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "action": "net.concrnt.core.commit.create",
+          "key": "./*",
+          "emit": "deny",
+          "condition": {
+            "op": "And",
+            "args": [
+              {
+                "op": "Not",
+                "args": [
+                  {
+                    "op": "Load",
+                    "const": "params.writeListMode"
+                  }
+                ]
+              },
+              {
+                "op": "Contains",
+                "args": [
+                  {
+                    "op": "Load",
+                    "const": "params.writer"
+                  },
+                  {
+                    "op": "Load",
+                    "const": "requester.ccid"
                   }
                 ]
               }
