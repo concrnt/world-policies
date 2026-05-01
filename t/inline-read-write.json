@@ -41,24 +41,32 @@
         {
           "action": "record:create",
           "key": "./*",
-          "emit": "allow",
+          "emit": "deny",
           "condition": {
-            "op": "Or",
+            "op": "And",
             "args": [
               {
-                "op": "Load",
-                "const": "params.isWritePublic"
+                "op": "Not",
+                "args": [{
+                  "op": "Load",
+                  "const": "params.isWritePublic"
+                }]
               },
               {
-                "op": "Contains",
+                "op": "Not",
                 "args": [
                   {
-                    "op": "Load",
-                    "const": "params.writer"
-                  },
-                  {
-                    "op": "Load",
-                    "const": "requester.ccid"
+                    "op": "Contains",
+                    "args": [
+                      {
+                        "op": "Load",
+                        "const": "params.writer"
+                      },
+                      {
+                        "op": "Load",
+                        "const": "requester.ccid"
+                      }
+                    ]
                   }
                 ]
               }
