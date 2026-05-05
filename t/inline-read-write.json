@@ -39,6 +39,15 @@
           }
         },
         {
+          "action": "record:read",
+          "key": "./*",
+          "emit": "deny",
+          "condition": {
+            "op": "Load",
+            "const": "params.isReadPublic"
+          }
+        },
+        {
           "action": "record:create",
           "key": "./*",
           "emit": "deny",
@@ -71,6 +80,15 @@
                 ]
               }
             ]
+          }
+        },
+        {
+          "action": "record:create",
+          "key": "./*",
+          "emit": "ok",
+          "condition": {
+            "op": "Load",
+            "const": "params.isWritePublic"
           }
         }
       ],
