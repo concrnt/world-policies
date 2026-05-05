@@ -41,7 +41,7 @@
         {
           "action": "record:read",
           "key": "./*",
-          "emit": "deny",
+          "emit": "ok",
           "condition": {
             "op": "Load",
             "const": "params.isReadPublic"
