@@ -7,6 +7,7 @@
           "action": "record:read",
           "key": "./*",
           "emit": "deny",
+          "reason": "DENY this timline is allow-list mode and you are not in the reader list",
           "condition": {
             "op": "And",
             "args": [
@@ -39,6 +40,7 @@
           "action": "record:read",
           "key": "./*",
           "emit": "deny",
+          "reason": "DENY this timline is deny-list mode and you are in the reader list",
           "condition": {
             "op": "And",
             "args": [
@@ -71,6 +73,7 @@
           "action": "record:create",
           "key": "./*",
           "emit": "deny",
+          "reason": "DENY this timline is allow-list mode and you are not in the writer list",
           "condition": {
             "op": "And",
             "args": [
@@ -103,6 +106,7 @@
           "action": "record:create",
           "key": "./*",
           "emit": "deny",
+          "reason": "DENY this timline is deny-list mode and you are in the writer list",
           "condition": {
             "op": "And",
             "args": [

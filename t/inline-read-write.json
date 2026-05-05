@@ -7,6 +7,7 @@
           "action": "record:read",
           "key": "./*",
           "emit": "deny",
+          "reason": "DENY this timline is not public and you are not in the reader list",
           "condition": {
             "op": "And",
             "args": [
@@ -42,6 +43,7 @@
           "action": "record:read",
           "key": "./*",
           "emit": "ok",
+          "reason": "OK this timeline is public",
           "condition": {
             "op": "Load",
             "const": "params.isReadPublic"
@@ -51,6 +53,7 @@
           "action": "record:create",
           "key": "./*",
           "emit": "deny",
+          "reason": "DENY this timline is not public and you are not in the writer list",
           "condition": {
             "op": "And",
             "args": [
@@ -86,6 +89,7 @@
           "action": "record:create",
           "key": "./*",
           "emit": "ok",
+          "reason": "OK this timeline is public",
           "condition": {
             "op": "Load",
             "const": "params.isWritePublic"
