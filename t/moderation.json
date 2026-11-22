@@ -1,0 +1,47 @@
+{
+  "name": "moderation",
+  "versions": {
+    "2025-12-23": {
+      "statements": [
+        {
+          "action": "record:delete",
+          "key": "./*",
+          "emit": "ok",
+          "reason": "OK: requester is a moderator of this timeline",
+          "condition": {
+            "op": "Contains",
+            "args": [
+              {
+                "op": "Load",
+                "const": "params.moderators"
+              },
+              {
+                "op": "Load",
+                "const": "requester.ccid"
+              }
+            ]
+          }
+        }
+      ],
+      "paramSchema": {
+        "type": "object",
+        "properties": {
+          "moderators": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "moderators"
+        ],
+        "ui": {
+          "moderators": {
+            "ui:widget": "userPicker"
+          }
+        }
+      }
+    }
+  }
+}
