@@ -29,6 +29,29 @@
         {
           "action": "record:create",
           "key": "./*",
+          "emit": "deny",
+          "condition": {
+            "op": "Not",
+            "args": [
+              {
+                "op": "Contains",
+                "args": [
+                  {
+                    "op": "Load",
+                    "const": "params.entities"
+                  },
+                  {
+                    "op": "Load",
+                    "const": "requester.ccid"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "action": "record:create",
+          "key": "./*",
           "emit": "ok",
           "condition": {
             "op": "Contains",
